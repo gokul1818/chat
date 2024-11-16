@@ -9,6 +9,7 @@ const Chat = ({ roomId, onLogout }) => {
   const [messages, setMessages] = useState([]);
   const [username, setUsername] = useState('');
   const messageInputRef = useRef(null);
+  const messagesEndRef = useRef(null); // Ref for auto-scrolling
 
   // Retrieve username from local storage
   useEffect(() => {
@@ -35,6 +36,13 @@ const Chat = ({ roomId, onLogout }) => {
     };
   }, [roomId]);
 
+  // Auto-scroll to the bottom when messages update
+  useEffect(() => {
+    if (messagesEndRef.current) {
+      messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [messages]);
+
   const sendMessage = () => {
     if (message.trim()) {
       const timestamp = new Date().toISOString();
@@ -54,7 +62,7 @@ const Chat = ({ roomId, onLogout }) => {
   return (
     <div className="chat-container">
       <div className="chat-header">
-        <h2>Chat Room: {roomId}</h2>
+        <h2 s>Chat Room: {roomId}</h2>
         <button onClick={onLogout} className="logout-button">Logout</button>
       </div>
       <div className="messages">
@@ -84,6 +92,7 @@ const Chat = ({ roomId, onLogout }) => {
             </div>
           </div>
         ))}
+        <div ref={messagesEndRef} /> {/* Scroll anchor */}
       </div>
       <div className="chat-footer">
         <textarea

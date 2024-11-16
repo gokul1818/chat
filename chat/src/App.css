@@ -9,7 +9,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: 100%;
   width: 100%;
 }
 
@@ -26,6 +26,10 @@ h1 {
   margin-bottom: 1.5rem;
   font-size: 1.8rem;
   color: #444;
+}
+
+h2 {
+  margin: 5px;
 }
 
 .input-field {
