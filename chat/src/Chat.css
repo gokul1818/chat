@@ -23,45 +23,39 @@
     border-bottom: 1px solid #444;
     position: fixed;
     top: 0;
-    width: 91%;
-
+    width: 93%;
+    z-index: 1;
 }
 
 /* Messages section */
 .messages {
-    /* flex: 1; */
     padding: 15px;
     overflow-y: auto;
-    height: 100%;
+    height: calc(100% - 140px);
+    /* Adjust to fit header and footer */
     margin-top: 40px;
     background-color: #23272a;
+    flex-grow: 1;
 }
 
 /* Scrollbar styling */
 .messages::-webkit-scrollbar {
     width: 8px;
-    /* Width of the scrollbar */
 }
 
 .messages::-webkit-scrollbar-track {
     background: #2c2f33;
-    /* Track color */
     border-radius: 10px;
-    /* Rounded corners for the track */
 }
 
 .messages::-webkit-scrollbar-thumb {
     background-color: #7289da;
-    /* Thumb color */
     border-radius: 10px;
-    /* Rounded corners for the thumb */
     border: 2px solid #2c2f33;
-    /* Border to create spacing between track and thumb */
 }
 
 .messages::-webkit-scrollbar-thumb:hover {
     background-color: #99aab5;
-    /* Thumb color on hover */
 }
 
 /* Individual message styling */
@@ -113,8 +107,12 @@
     padding: 10px;
     background-color: #2c2f33;
     border-top: 1px solid #444;
+    position: fixed;
+    bottom: 0;
+    width: 91%;
 }
 
+/* Chat input area */
 .chat-input {
     flex: 1;
     padding: 8px;
@@ -132,6 +130,7 @@
     outline: none;
 }
 
+/* Send button */
 .send-button {
     padding: 8px 16px;
     background-color: #5f5c6c;
@@ -147,6 +146,7 @@
     background-color: #6b5ea6;
 }
 
+/* Header button styling */
 .chat-header {
     display: flex;
     justify-content: space-between;
@@ -156,6 +156,7 @@
     border-radius: 4px 4px 0 0;
 }
 
+/* Logout button */
 .logout-button {
     background-color: #ff4d4d;
     color: white;
@@ -169,4 +170,57 @@
 
 .logout-button:hover {
     background-color: #e04343;
+}
+
+/* Image Preview Styling */
+.image-preview {
+    max-width: 100px;
+    max-height: 100px;
+    margin: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* Style for image upload input */
+.image-upload {
+    margin-left: 10px;
+}
+
+.message-content img {
+    max-width: 100%;
+    max-height: 100%;
+    /* width: auto;
+    height: auto; */
+    object-fit: contain;
+}
+
+/* Responsive Design for smaller screens */
+@media screen and (max-width: 600px) {
+    .chat-container {
+        max-width: 100%;
+        margin: 0;
+        height: 100vh;
+    }
+
+    .chat-header {
+        width: 94%;
+        padding: 10px;
+    }
+
+    .chat-footer {
+        width: 100%;
+    }
+
+    .message-content {
+        font-size: 12px;
+    }
+
+    .chat-input {
+        font-size: 12px;
+    }
+
+    .send-button {
+        font-size: 12px;
+        padding: 6px 12px;
+    }
 }
