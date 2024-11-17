@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import FileBase64 from "react-file-base64"; // Import the package
+import { FaImage } from "react-icons/fa"; // FontAwesome image icon
 import io from "socket.io-client";
 import "./Chat.css";
 
@@ -10,6 +10,8 @@ const Chat = ({ roomId, onLogout }) => {
   const [messages, setMessages] = useState([]);
   const [username, setUsername] = useState("");
   const [imageBase64, setImageBase64] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalImage, setModalImage] = useState(null);
   const messageInputRef = useRef(null);
   const messagesEndRef = useRef(null);
 
@@ -48,13 +50,39 @@ const Chat = ({ roomId, onLogout }) => {
     if (message.trim() || imageBase64) {
       const timestamp = new Date().toISOString();
       const newMessage = { roomId, username, message, timestamp, image: imageBase64 };
-      console.log(newMessage)
       socket.emit("sendMessage", newMessage); // Emit message to server
       setMessage("");
       setImageBase64(null); // Clear image after sending
     }
   };
 
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.readAsDataURL(file); // Read as Base64
+      reader.onload = () => {
+        setImageBase64(reader.result)
+
+      }; // Save Base64 string
+      reader.onerror = (error) => console.error("Error reading file:", error);
+
+    }
+  };
+
+  const openModal = (image) => {
+    setModalImage(image);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setModalImage(null);
+    setIsModalOpen(false);
+  };
+
+  useEffect(() => {
+    sendMessage()
+  }, [imageBase64])
   return (
     <div className="chat-container">
       <div className="chat-header">
@@ -92,6 +120,8 @@ const Chat = ({ roomId, onLogout }) => {
                   src={msg.image} // Assumes the full Base64 string
                   alt="Shared"
                   className="shared-image"
+                  onClick={() => openModal(msg.image)} // Open modal on click
+                  style={{ cursor: "pointer" }}
                 />
               )}
               <small className="message-timestamp">
@@ -112,14 +142,33 @@ const Chat = ({ roomId, onLogout }) => {
           placeholder="Type a message..."
           rows={1}
         />
-        <FileBase64
-          multiple={false}
-          onDone={({ base64 }) => setImageBase64(base64)} // Set Base64 string
+        {/* File upload button */}
+        <label htmlFor="file-upload" className="image-upload-icon">
+          <FaImage size={24} />
+        </label>
+        <input
+          id="file-upload"
+          type="file"
+          accept="image/*"
+          onChange={handleFileChange}
+          style={{ display: "none" }} // Hide the input
         />
         <button className="send-button" onClick={sendMessage}>
           Send
         </button>
       </div>
+
+      {/* Modal for viewing image */}
+      {isModalOpen && (
+        <div className="modal" onClick={closeModal}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <img src={modalImage} alt="Modal View" className="modal-image" />
+            <button className="modal-close" onClick={closeModal}>
+              Close
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
