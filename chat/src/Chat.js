@@ -86,7 +86,7 @@ const Chat = ({ roomId, onLogout }) => {
   return (
     <div className="chat-container">
       <div className="chat-header">
-        <h2>Chat Room: {roomId}</h2>
+        <h4 style={{ margin: 0 }}>Chat Room: {roomId}</h4>
         <button onClick={onLogout} className="logout-button">
           Logout
         </button>

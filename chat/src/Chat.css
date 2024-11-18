@@ -23,8 +23,15 @@
     border-bottom: 1px solid #444;
     position: fixed;
     top: 0;
-    width: 93%;
     z-index: 1;
+    max-width: 561px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 4px 4px 0 0;
 }
 
 /* Messages section */
@@ -110,7 +117,8 @@
     border-top: 1px solid #444;
     position: fixed;
     bottom: 0;
-    width: 94% !important;
+    width: 100% !important;
+    max-width: 581px;
     justify-content: space-between;
 }
 
@@ -149,14 +157,7 @@
 }
 
 /* Header button styling */
-.chat-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    color: white;
-    padding: 10px 20px;
-    border-radius: 4px 4px 0 0;
-}
+.chat-header {}
 
 /* Logout button */
 .logout-button {
@@ -195,8 +196,9 @@
     height: auto; */
     object-fit: contain;
 }
-.image-upload-icon{
-    margin-top:5px;
+
+.image-upload-icon {
+    margin-top: 5px;
 }
 
 
@@ -211,20 +213,20 @@
     justify-content: center;
     align-items: center;
     z-index: 1000;
-  }
-  
-  .modal-content {
+}
+
+.modal-content {
     position: relative;
     max-width: 90%;
     max-height: 90%;
-  }
-  
-  .modal-image {
+}
+
+.modal-image {
     width: 100%;
     height: auto;
-  }
-  
-  .modal-close {
+}
+
+.modal-close {
     position: absolute;
     top: 10px;
     right: 10px;
@@ -234,12 +236,12 @@
     cursor: pointer;
     padding: 5px 10px;
     border-radius: 5px;
-  }
-  
-  .modal-close:hover {
+}
+
+.modal-close:hover {
     background: #ddd;
-  }
-  
+}
+
 
 
 /* Responsive Design for smaller screens */
@@ -251,12 +253,13 @@
     }
 
     .chat-header {
-        width: 94%;
         padding: 10px;
+        width: 95% !important;
+
     }
 
     .chat-footer {
-        width: 100%;
+        width: 95% !important;
     }
 
     .message-content {
